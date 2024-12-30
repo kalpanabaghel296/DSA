@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+// Define the structure for a node
+struct node {
+    int data;
+    struct node* left;
+    struct node* right;
+};
+
+// Function to create a new node
+struct node* createnode(int data) {
+    struct node* n = (struct node*)malloc(sizeof(struct node));
+    n->data = data;
+    n->left = NULL;
+    n->right = NULL;
+    return n;
+}
+
+// Function to perform Inorder Traversal
+void Inorder(struct node* root) {
+    if (root != NULL) {
+        Inorder(root->left);
+        printf("%d ", root->data);
+        Inorder(root->right);
+    }
+}
+
+// Function to insert a new node into the binary search tree
+struct node* Insertion(struct node* root, int ele) {
+    if (root == NULL) {
+        return createnode(ele);
+    }
+    if (ele < root->data) {
+        root->left = Insertion(root->left, ele);
+    } else if (ele > root->data) {
+        root->right = Insertion(root->right, ele);
+    }
+    return root;
+}
+
+int main() {
+    struct node* root = NULL; // Initialize the root as NULL
+
+    // Insert elements into the tree and update the root
+    root = Insertion(root, 4);
+    root = Insertion(root, 2);
+    root = Insertion(root, 7);
+    root = Insertion(root, 1);
+
+    // Perform Inorder Traversal to print the tree
+    printf("Inorder Traversal: ");
+    Inorder(root);
+    printf("\n");
+
+    return 0;
+}
